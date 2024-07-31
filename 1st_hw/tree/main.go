@@ -16,9 +16,6 @@ func recurseFull(out io.Writer, path string, str string) {
 	}
 	sort.Slice(dir, func(i, j int) bool { return dir[i].Name() < dir[j].Name() })
 	for i, data := range dir {
-		if data.Name() == ".git" {
-			continue
-		}
 		info, err := data.Info()
 		if err != nil {
 			panic(err.Error())
@@ -64,9 +61,6 @@ func recurseDir(out io.Writer, path string, str string) {
 	dirs := slices.DeleteFunc(dir, func(d fs.DirEntry) bool { return !d.IsDir() })
 	for i, data := range dirs {
 		if data == nil {
-			continue
-		}
-		if data.Name() == ".git" {
 			continue
 		}
 		switch i == len(dirs)-1 {
